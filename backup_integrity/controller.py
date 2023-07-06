@@ -47,6 +47,7 @@ class Controller():
 
                 if validated:
                     valid.append(f)
+
                 processed.add(f)
 
         return IntegrityReport(valid, dict(invalid), dict(missing))

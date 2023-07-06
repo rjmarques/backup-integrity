@@ -1,0 +1,15 @@
+------------------ Missing files ------------------
+text/text_3 missing from:
+    * /Users/ricardomarques/longshot/go/src/github.com/longshotsyndicate/backup-integrity/tests/test_data/secondary_backup
+unique.webp missing from:
+    * /Users/ricardomarques/longshot/go/src/github.com/longshotsyndicate/backup-integrity/tests/test_data/secondary_backup
+    * /Users/ricardomarques/longshot/go/src/github.com/longshotsyndicate/backup-integrity/tests/test_data/tertiary_backup
+
+------------------ Invalid files ------------------
+text/text_2 diverging between:
+    * /Users/ricardomarques/longshot/go/src/github.com/longshotsyndicate/backup-integrity/tests/test_data/main_backup and /Users/ricardomarques/longshot/go/src/github.com/longshotsyndicate/backup-integrity/tests/test_data/tertiary_backup:
+
+------------------ Valid files ------------------
+binary_1
+text/text_1
+py_logo.png
