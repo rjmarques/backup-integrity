@@ -1,5 +1,6 @@
 import os
 from collections import defaultdict
+from tqdm import tqdm
 from .crawler import list_files
 from .results import IntegrityReport
 from .integrity import compare
@@ -13,7 +14,7 @@ class Controller():
         invalid = defaultdict(list)
         missing = defaultdict(list)
         
-        # collect all files from each target directory 
+        # collect all files from each target directory
         files_by_backup = self.files_by_folder()
 
         # files already processed
@@ -21,10 +22,12 @@ class Controller():
 
         # iterate over all files, comparing all backups to one another
         for root_dir, files in files_by_backup:
+            print("processing files in '{0}'".format(root_dir))
+
             # gather other backups excluding the main we're iterating
             other_backups = [ (key,value) for key, value in files_by_backup if root_dir != key ]
             
-            for f in files:
+            for f in tqdm(files, unit='files'):                
                 if f in processed:
                     continue
                 
@@ -56,6 +59,7 @@ class Controller():
         res = []
 
         for path in self.dir_paths:
+            print("crawling through '{0}' to collect files".format(path))
             res.append((path, list_files(path)))
 
         return res

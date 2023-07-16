@@ -33,6 +33,9 @@ def process_args():
 
         next = idx+1
         for y in dir_paths[next:]:
+            if not os.path.commonprefix([x,y]):
+                continue
+
             common = os.path.commonpath([x, y])
             if common == x or common == y:
                 sys.exit("error -> {0} and {1} collide. Please provide independent base directories".format(x, y))
