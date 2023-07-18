@@ -12,7 +12,7 @@ class IntegrityReport:
     missing: dict
 
     def export_to_file(self, report_path, export_valid=False):
-        with open(report_path, "w") as report_file:
+        with open(report_path, "w", encoding='utf-8') as report_file:
             # write all missing files
             # report_file.writelines(["Hey there!", "LearnPython.com is awesome!"])
             report_file.write("------------------ Missing files ------------------\n")

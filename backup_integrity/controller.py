@@ -1,4 +1,5 @@
 import os
+from time import sleep
 from collections import defaultdict
 from tqdm import tqdm
 from .crawler import list_files
@@ -43,8 +44,7 @@ class Controller():
                     other_path = os.path.join(other_root, f)
                     
                     # compare files
-                    equal = compare(file_path, other_path)
-                    if not equal:
+                    if not self.isEqual(file_path, other_path):
                         invalid[f].append((root_dir, other_root))
                         validated = False
 
@@ -55,6 +55,19 @@ class Controller():
 
         return IntegrityReport(valid, dict(invalid), dict(missing))
     
+    def isEqual(self, file_a, file_b, max_retry=5):
+        for _ in range(max_retry):
+            try:
+                return compare(file_a, file_b)
+            except (RuntimeError, OSError) as err:
+                 print("error comparing {0} to {1}: {2}".format(file_a, file_b, err))
+                 # wait a bit to see if the IO issue disappears
+                 sleep(1)
+        
+        # if it reaches here it was not able to compare the files!
+        raise RuntimeError("too many errors...aborting") 
+
+
     def files_by_folder(self):
         res = []
 
