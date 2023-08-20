@@ -11,7 +11,10 @@ class IntegrityReport:
     # files that are missing in specific backups: file -> [backup_w, backup_z]
     missing: dict
 
-    def export_to_file(self, report_path, export_valid=False):
+    def export_to_file(self, report_path, only_if_invalid=False, export_valid=False):
+        if only_if_invalid and not self.invalid and not self.missing:
+            return
+
         with open(report_path, "w", encoding='utf-8') as report_file:
             # write all missing files
             # report_file.writelines(["Hey there!", "LearnPython.com is awesome!"])

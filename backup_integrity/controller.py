@@ -55,17 +55,17 @@ class Controller():
 
         return IntegrityReport(valid, dict(invalid), dict(missing))
     
-    def isEqual(self, file_a, file_b, max_retry=5):
-        for _ in range(max_retry):
+    def isEqual(self, file_a, file_b, max_retry=6):
+        for i in range(max_retry):
             try:
                 return compare(file_a, file_b)
             except (RuntimeError, OSError) as err:
-                 print("error comparing {0} to {1}: {2}".format(file_a, file_b, err))
+                 print("[attempt {0}] error comparing {1} to {2}: {3}".format(i+1, file_a, file_b, err))
                  # wait a bit to see if the IO issue disappears
-                 sleep(1)
+                 sleep(10)
         
         # if it reaches here it was not able to compare the files!
-        raise RuntimeError("too many errors...aborting") 
+        return False
 
 
     def files_by_folder(self):

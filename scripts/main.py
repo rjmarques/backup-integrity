@@ -12,7 +12,7 @@ def main():
     ctrl = Controller(dir_paths)
     out = ctrl.verify_file_integrity()
 
-    out.export_to_file(target_output, export_valid=True)
+    out.export_to_file(target_output, export_valid=False)
 
 def process_args():
     parser = argparse.ArgumentParser(description='Validate files between backup directories that should have exactly the same contents', usage='%(prog)s [-h] directory_1 directory_2 [directory_N ...]')
